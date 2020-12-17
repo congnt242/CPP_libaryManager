@@ -4,4 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        book.cpp \
+        librarymanagement.cpp \
         main.cpp
+
+HEADERS += \
+    book.h \
+    librarymanagement.h
