@@ -1,9 +1,10 @@
 #include <iostream>
+#include"controller.h"
 
-using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    Controller run;
+    run.RunSystem();
     return 0;
 }

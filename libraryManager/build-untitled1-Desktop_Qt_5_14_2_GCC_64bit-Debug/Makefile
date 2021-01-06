@@ -52,8 +52,14 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../app/main.cpp 
-OBJECTS       = main.o
+SOURCES       = ../app/book.cpp \
+		../app/controller.cpp \
+		../app/librarymanagement.cpp \
+		../app/main.cpp 
+OBJECTS       = book.o \
+		controller.o \
+		librarymanagement.o \
+		main.o
 DIST          = ../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/common/unix.conf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/common/linux.conf \
@@ -210,6 +216,7 @@ DIST          = ../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/qt_config.prf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_post.prf \
+		../app/.qmake.stash \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/toolchain.prf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -223,7 +230,12 @@ DIST          = ../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/exceptions.prf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/yacc.prf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/lex.prf \
-		../app/untitled1.pro  ../app/main.cpp
+		../app/untitled1.pro book.h \
+		controller.h \
+		librarymanagement.h ../app/book.cpp \
+		../app/controller.cpp \
+		../app/librarymanagement.cpp \
+		../app/main.cpp
 QMAKE_TARGET  = untitled1
 DESTDIR       = 
 TARGET        = untitled1
@@ -391,6 +403,7 @@ Makefile: ../app/untitled1.pro ../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/qt_config.prf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/toolchain.prf \
 		../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -562,6 +575,7 @@ Makefile: ../app/untitled1.pro ../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++
 ../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/qt_config.prf:
 ../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/toolchain.prf:
 ../../../Qt5.14.2/5.14.2/gcc_64/mkspecs/features/default_pre.prf:
@@ -619,7 +633,20 @@ compiler_clean:
 
 ####### Compile
 
-main.o: ../app/main.cpp 
+book.o: ../app/book.cpp ../app/book.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o book.o ../app/book.cpp
+
+controller.o: ../app/controller.cpp ../app/controller.h \
+		../app/librarymanagement.h \
+		../app/book.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o ../app/controller.cpp
+
+librarymanagement.o: ../app/librarymanagement.cpp ../app/librarymanagement.h \
+		../app/book.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o librarymanagement.o ../app/librarymanagement.cpp
+
+main.o: ../app/main.cpp ../app/librarymanagement.h \
+		../app/book.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../app/main.cpp
 
 ####### Install
